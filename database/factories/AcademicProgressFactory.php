@@ -19,25 +19,28 @@ class AcademicProgressFactory extends Factory
      */
     public function definition(): array
     {
+        $startYear = now()->year - rand(0, 4) * 4; // Ensure academic year makes sense
+        $endYear = $startYear + 1;
+
         return [
             'student_id' => Student::factory(),
             'subject_id' => Subject::factory(),
             'class_id' => StClass::factory(),
             'progress_type' => $this->faker->randomElement(['Exam', 'Project', 'Assignment', 'Class Participation', 'Other']),
-            'description' => $this->faker->optional()->paragraph(),
+            'description' => $this->faker->optional()->sentence(),
             'grade' => $this->faker->randomElement(['A', 'B', 'C', 'D', 'E', 'F']),
             'status' => $this->faker->randomElement(['Completed', 'Pending', 'In-Progress']),
-            'term' => $this->faker->word(), // e.g., Term 1, Term 2
-            'academic_year' => $this->faker->year() . '-' . ($this->faker->year() + 1), // e.g., 2023-2024
-            'date_recorded' => $this->faker->date(),
+            'term' => $this->faker->randomElement(['Term 1', 'Term 2', 'Term 3']),
+            'academic_year' => "{$startYear}-{$endYear}",
+            'date_recorded' => $this->faker->dateTimeBetween("{$startYear}-01-01", "{$endYear}-12-31")->format('Y-m-d'),
             'teacher_comments' => [
                 [
-                    'date' => $this->faker->date(),
+                    'date' => $this->faker->dateTimeBetween("{$startYear}-01-01", "{$endYear}-12-31")->format('Y-m-d'),
                     'comment' => $this->faker->sentence(),
                     'teacher_name' => $this->faker->name(),
                 ],
                 [
-                    'date' => $this->faker->date(),
+                    'date' => $this->faker->dateTimeBetween("{$startYear}-01-01", "{$endYear}-12-31")->format('Y-m-d'),
                     'comment' => $this->faker->sentence(),
                     'teacher_name' => $this->faker->name(),
                 ]

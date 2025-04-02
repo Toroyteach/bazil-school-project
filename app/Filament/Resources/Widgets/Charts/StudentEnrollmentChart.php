@@ -13,8 +13,8 @@ class StudentEnrollmentChart extends ChartWidget
 
     protected function getData(): array
     {
-        $data = Student::selectRaw("strftime('%m', created_at) as month, COUNT(*) as count")
-            ->groupBy(DB::raw("strftime('%m', created_at)"))
+        $data = Student::selectRaw("MONTH(created_at) as month, COUNT(*) as count")
+            ->groupBy(DB::raw("MONTH(created_at)"))
             ->orderBy('month')
             ->pluck('count', 'month');
 

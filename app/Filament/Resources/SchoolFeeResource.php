@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SchoolFeeResource\Pages;
 use App\Filament\Resources\SchoolFeeResource\RelationManagers;
+use App\Filament\Resources\SchoolFeeResource\RelationManagers\StudentsRelationManager;
 use App\Filament\Resources\SchoolFeeResource\Widgets\SchoolFeesOverview;
 use App\Models\SchoolFee;
 use Filament\Forms;
@@ -108,7 +109,7 @@ class SchoolFeeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StudentsRelationManager::class,
         ];
     }
 
