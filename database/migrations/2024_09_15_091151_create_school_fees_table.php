@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('student_id')->unsigned(); // foreign key to students
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->integer('class_id')->unsigned(); // foreign key to subjects
+            $table->foreign('class_id')->references('id')->on('st_classes')->onDelete('cascade');
             $table->decimal('amount_due', 10, 2); // total amount due for the student
             $table->decimal('amount_paid', 10, 2)->default(0); // amount already paid
             $table->decimal('balance', 10, 2); // remaining balance

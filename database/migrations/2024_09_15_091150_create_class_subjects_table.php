@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('class_subjects', function (Blueprint $table) {
             $table->increments('id'); // auto-increment primary key
-            $table->string('subject_name')->unique(); // e.g., Mathematics, Science
+            $table->string('subject_name'); // e.g., Mathematics, Science
             $table->string('subject_code')->unique(); // e.g., MATH101, ENG102
 
             // Foreign key to 'st_classes' table, nullable

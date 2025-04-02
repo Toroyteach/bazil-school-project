@@ -17,7 +17,7 @@ class PaymentMethodFactory extends Factory
     public function definition(): array
     {
         return [
-            'method_name' => fake()->word(),
+            'method_name' => fake()->randomElement(['MPESA', 'BANK', 'CASH', 'OTHER']),
             'description' => fake()->sentence(),
         ];
     }

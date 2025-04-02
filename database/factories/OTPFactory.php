@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\StClass;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +23,8 @@ class OTPFactory extends Factory
             'otp_code' => fake()->numberBetween(100000, 999999),
             'expires_at' => fake()->dateTimeBetween('now', '+1 hour'),
             'is_verified' => fake()->boolean(),
+            'student_id' => Student::inRandomOrder()->first()?->id ?? Student::factory(),
+            'class_id' => StClass::inRandomOrder()->first()?->id ?? StClass::factory(),
         ];
     }
 }

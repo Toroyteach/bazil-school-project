@@ -15,6 +15,10 @@ return new class extends Migration
             $table->increments('id');
             $table->string('phone_number'); // phone number used for OTP login
             $table->string('otp_code'); // the OTP code sent to the phone
+            $table->integer('student_id')->unsigned(); // foreign key to students
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->integer('class_id')->unsigned(); // foreign key to subjects
+            $table->foreign('class_id')->references('id')->on('st_classes')->onDelete('cascade');
             $table->timestamp('expires_at'); // when the OTP expires
             $table->boolean('is_verified')->default(false); // whether the OTP was verified
             $table->timestamps(); 

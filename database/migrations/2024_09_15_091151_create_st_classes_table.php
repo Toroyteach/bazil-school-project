@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('st_classes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('class_name'); // e.g., Grade 1, Grade 2
+            $table->string('class_name')->unique(); // e.g., Grade 1, Grade 2
             $table->string('section')->nullable(); // Section if applicable (e.g., A, B)
+            $table->string('students_count')->default(0);
             $table->integer('class_teacher_id')->unsigned()->nullable(); // foreign key to class teacher
             $table->foreign('class_teacher_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps(); // created_at and updated_at

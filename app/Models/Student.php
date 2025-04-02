@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
+/**
+ * Details of the students that have been enrolled in school
+ */
 class Student extends Model
 {
     use HasFactory;
@@ -76,4 +80,4 @@ class Student extends Model
             'profile_photo' => 'nullable|string|max:255', // Assuming URL or file path
         ];
     }
-}
+} 

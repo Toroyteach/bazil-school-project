@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rule;
 
+/**
+ * The subjects that the students can enroll in.
+ * in a class.
+ * this belongs to a StudentClass (StClass)
+ */
+
 class Subject extends Model
 {
     use HasFactory;
@@ -28,7 +34,7 @@ class Subject extends Model
         return [
             'title' => 'required|string|max:100',
             'summary' => 'required|string|max:500',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'class_id' => 'required|exists:st_classes,id',
         ];
     }

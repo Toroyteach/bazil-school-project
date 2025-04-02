@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rule;
 
+
+/**
+ * This models represents the students classes.
+ * of the school (1 2, pp1, Grade 1 etc)
+ */
+
 class StClass extends Model
 {
     use HasFactory;
@@ -15,6 +21,7 @@ class StClass extends Model
         'class_name',
         'section',
         'class_teacher_id',
+        'students_count',
     ];
 
     public function classTeacher(): BelongsTo
@@ -27,6 +34,8 @@ class StClass extends Model
         return [
             'class_name' => 'required|string|max:255',
             'section' => 'required|string|max:50',
+            'students_count' => 'required|integer',
+            'class_teacher_id' => 'required|exists:users,id',
         ];
     }
 }

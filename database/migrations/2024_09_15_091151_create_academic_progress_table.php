@@ -20,6 +20,9 @@ return new class extends Migration
             $table->integer('subject_id')->unsigned(); // foreign key to subjects
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
 
+            $table->integer('class_id')->unsigned(); // foreign key to subjects
+            $table->foreign('class_id')->references('id')->on('st_classes')->onDelete('cascade');
+
             $table->enum('progress_type', ['Exam', 'Project', 'Assignment', 'Class Participation', 'Other']); // type of academic progress
             $table->text('description')->nullable(); // description of the progress
             $table->string('grade')->nullable(); // grade for the progress (nullable)
@@ -27,7 +30,7 @@ return new class extends Migration
             $table->string('term'); // e.g., Term 1, Term 2
             $table->string('academic_year'); // e.g., 2023-2024
             $table->date('date_recorded'); // date when the progress was recorded
-            $table->text('teacher_comments')->nullable(); // comments from the teacher
+            $table->json('teacher_comments')->nullable(); // comments from the teacher
             $table->timestamps(); // created_at and updated_at
         });
     }

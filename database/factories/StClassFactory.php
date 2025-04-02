@@ -18,9 +18,9 @@ class StClassFactory extends Factory
     public function definition(): array
     {
         return [
-            'class_name' => fake()->word(), // Example class name
-            'section' => fake()->optional()->word(), // Optional section
-            'class_teacher_id' => User::factory(), // Create a related class teacher
+            'class_name' => fake()->word(),
+            'section' => fake()->word(), // Optional section
+            'class_teacher_id' => User::factory(), // Assign a teacher
         ];
     }
 }

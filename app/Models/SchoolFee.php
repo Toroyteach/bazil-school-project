@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rule;
 
+
+/**
+ * This model contains the
+ * payments that have been made per students
+ */
+
 class SchoolFee extends Model
 {
     use HasFactory;
@@ -37,6 +43,11 @@ class SchoolFee extends Model
     public function paymentMethod(): BelongsTo
     {
         return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
+    }
+
+    public function stClass(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class, 'class_id');
     }
 
     public static function rules($id = null)

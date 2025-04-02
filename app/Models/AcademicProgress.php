@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Validation\Rule;
 
+/**
+ * This class is ment to
+ * contain the student progress
+ * in the school
+ */
+
 class AcademicProgress extends Model
 {
     use HasFactory;
@@ -28,6 +34,7 @@ class AcademicProgress extends Model
         'date_recorded' => 'date',
         'progress_type' => 'string',
         'status' => 'string',
+        'teacher_comments' => 'array'
     ];
 
     public function student(): BelongsTo
@@ -38,6 +45,11 @@ class AcademicProgress extends Model
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class, 'subject_id');
+    }
+
+    public function stClass(): BelongsTo
+    {
+        return $this->belongsTo(StClass::class, 'class_id');
     }
 
     public static function rules($id = null)
@@ -60,7 +72,7 @@ class AcademicProgress extends Model
             'term' => 'required|string|max:50',
             'academic_year' => 'required|string|max:20',
             'date_recorded' => 'required|date',
-            'teacher_comments' => 'nullable|string',
+            'teacher_comments' => 'nullable|array',
         ];
     }
 }
