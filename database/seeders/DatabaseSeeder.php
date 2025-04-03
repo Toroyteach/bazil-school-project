@@ -83,7 +83,7 @@ class DatabaseSeeder extends Seeder
                 ClassSubject::factory()->create([
                     'class_id' => $class->id,
                     'subject_name' => $subject->title,
-                    'subject_code' => strtoupper(substr($subject->title, 0, 4)) . rand(100, 999),
+                    'subject_code' => strtoupper(substr($subject->title, 0, 4)) .'-'. substr(uniqid(), -4),
                     'teacher_id' => User::where('role', 'teacher')->inRandomOrder()->first()?->id,
                 ]);
             }

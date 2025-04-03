@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
 
@@ -27,6 +28,16 @@ class StClass extends Model
     public function classTeacher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'class_teacher_id');
+    }
+
+    public function otp(): HasMany
+    {
+        return $this->HasMany(OTP::class, 'class_id');
+    }
+
+    public function subjects(): HasMany
+    {
+        return $this->HasMany(Subject::class, 'class_id');
     }
 
     public static function rules()

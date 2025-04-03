@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Validation\Rule;
 
 /**
@@ -27,6 +28,11 @@ class Subject extends Model
     public function st_class(): BelongsTo
     {
         return $this->belongsTo(StClass::class, 'class_id');
+    }
+
+    public function academicProgress(): HasMany
+    {
+        return $this->HasMany(AcademicProgress::class);
     }
 
     public static function rules()

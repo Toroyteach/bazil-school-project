@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\OTPResource\Pages;
 use App\Filament\Resources\OTPResource\RelationManagers;
 use App\Filament\Resources\OTPResource\Widgets\OtpOverview;
+use App\Filament\Resources\OTPResource\RelationManagers\StudentRelationManager;
+use App\Filament\Resources\OTPResource\RelationManagers\StClassRelationManager;
 use App\Models\OTP;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -91,7 +93,8 @@ class OTPResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StClassRelationManager::class,
+            StudentRelationManager::class,
         ];
     }
 

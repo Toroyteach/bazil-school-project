@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SchoolFeeResource\Pages;
 use App\Filament\Resources\SchoolFeeResource\RelationManagers;
+use App\Filament\Resources\SchoolFeeResource\RelationManagers\PaymentMethodRelationManager;
+use App\Filament\Resources\SchoolFeeResource\RelationManagers\StClassRelationManager;
 use App\Filament\Resources\SchoolFeeResource\RelationManagers\StudentsRelationManager;
 use App\Filament\Resources\SchoolFeeResource\Widgets\SchoolFeesOverview;
 use App\Models\SchoolFee;
@@ -71,9 +73,6 @@ class SchoolFeeResource extends Resource
                 Tables\Columns\TextColumn::make('student.id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('class_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('amount_due')
                     ->numeric()
                     ->sortable(),
@@ -87,9 +86,6 @@ class SchoolFeeResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('due_date')
                     ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('paymentMethod.id')
-                    ->numeric()
                     ->sortable(),
             ])
             ->filters([
@@ -110,6 +106,8 @@ class SchoolFeeResource extends Resource
     {
         return [
             StudentsRelationManager::class,
+            StClassRelationManager::class,
+            PaymentMethodRelationManager::class
         ];
     }
 

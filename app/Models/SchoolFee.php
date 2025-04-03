@@ -47,7 +47,7 @@ class SchoolFee extends Model
 
     public function stClass(): BelongsTo
     {
-        return $this->belongsTo(Subject::class, 'class_id');
+        return $this->belongsTo(StClass::class, 'class_id');
     }
 
     public static function rules($id = null)

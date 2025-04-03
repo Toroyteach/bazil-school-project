@@ -49,6 +49,21 @@ class Student extends Model
         return $this->belongsTo(StClass::class, 'class_id');
     }
 
+    public function schoolFees(): HasMany
+    {
+        return $this->HasMany(SchoolFee::class);
+    }
+
+    public function otp(): HasMany
+    {
+        return $this->HasMany(OTP::class);
+    }
+
+    public function academicProgress(): HasMany
+    {
+        return $this->HasMany(AcademicProgress::class);
+    }
+
     public static function rules($id = null)
     {
         return [
@@ -80,4 +95,4 @@ class Student extends Model
             'profile_photo' => 'nullable|string|max:255', // Assuming URL or file path
         ];
     }
-} 
+}

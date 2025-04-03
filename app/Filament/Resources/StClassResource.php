@@ -5,6 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\StClassResource\Pages;
 use App\Filament\Resources\StClassResource\RelationManagers;
 use App\Filament\Resources\StClassResource\Widgets\StClassOverview;
+use App\Filament\Resources\StClassResource\RelationManagers\SubjectsRelationManager;
+use App\Filament\Resources\StClassResource\RelationManagers\ClassTeacherRelationManager;
+use App\Filament\Resources\StClassResource\RelationManagers\OtpRelationManager;
 use App\Models\StClass;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -83,7 +86,9 @@ class StClassResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ClassTeacherRelationManager::class,
+            OtpRelationManager::class,
+            SubjectsRelationManager::class,
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\SchoolFeeResource\RelationManagers;
+namespace App\Filament\Resources\AcademicProgressResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -10,7 +10,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StudentsRelationManager extends RelationManager
+class StudentRelationManager extends RelationManager
 {
     protected static string $relationship = 'student';
 

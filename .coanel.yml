@@ -1,0 +1,29 @@
+---
+deployment:
+  tasks:
+    # Define paths
+    - export REPO_PATH=/home/thecrane/repositories/school-project
+    - export DEPLOY_PATH=/home/thecrane/public_html
+    - export ENV_PATH=/home/thecrane/env_path/.env
+
+    # Copy only the public folder to public_html
+    - rsync -av --delete $REPO_PATH/public/ $DEPLOY_PATH/
+
+    # Modify index.php to point to the correct paths
+    - sed -i "s|__DIR__.'/../vendor/autoload.php'|__DIR__.'/../repositories/school-project/vendor/autoload.php'|g" $DEPLOY_PATH/index.php
+    - sed -i "s|__DIR__.'/../bootstrap/app.php'|__DIR__.'/../repositories/school-project/bootstrap/app.php'|g" $DEPLOY_PATH/index.php
+
+    # Copy the .env file to the Laravel project root
+    - cp $ENV_PATH $REPO_PATH/.env
+
+    # Set correct permissions
+    - chmod -R 775 $REPO_PATH/storage $REPO_PATH/bootstrap/cache
+    - chown -R thecrane:thecrane $REPO_PATH
+
+    # Run Laravel commands
+    - cd $REPO_PATH
+    - composer install --optimize-autoloader
+    - php artisan config:cache
+    - php artisan route:cache
+    - php artisan view:cache
+    - php artisan migrate:fresh --force --seed

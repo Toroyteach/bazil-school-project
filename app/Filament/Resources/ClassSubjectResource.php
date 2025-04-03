@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ClassSubjectResource\Pages;
 use App\Filament\Resources\ClassSubjectResource\RelationManagers;
 use App\Filament\Resources\ClassSubjectResource\Widgets\ClassSubjectsOverview;
+use App\Filament\Resources\ClassSubjectResource\RelationManagers\TeacherRelationManager;
+use App\Filament\Resources\ClassSubjectResource\RelationManagers\StClassRelationManager;
 use App\Models\ClassSubject;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -87,7 +89,8 @@ class ClassSubjectResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StClassRelationManager::class,
+            TeacherRelationManager::class
         ];
     }
 

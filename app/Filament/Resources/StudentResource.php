@@ -4,6 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
+use App\Filament\Resources\StudentResource\RelationManagers\AcademicProgressRelationManager;
+use App\Filament\Resources\StudentResource\RelationManagers\OtpRelationManager;
+use App\Filament\Resources\StudentResource\RelationManagers\SchoolFeesRelationManager;
+use App\Filament\Resources\StudentResource\RelationManagers\StClassesRelationManager;
 use App\Filament\Resources\StudentResource\Widgets\StudentsOverview;
 use App\Models\Student;
 use Filament\Forms;
@@ -120,7 +124,10 @@ class StudentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StClassesRelationManager::class,
+            SchoolFeesRelationManager::class,
+            OtpRelationManager::class,
+            AcademicProgressRelationManager::class
         ];
     }
 

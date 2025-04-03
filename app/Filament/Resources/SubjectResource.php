@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SubjectResource\Pages;
 use App\Filament\Resources\SubjectResource\RelationManagers;
+use App\Filament\Resources\SubjectResource\RelationManagers\AcademicProgressRelationManager;
+use App\Filament\Resources\SubjectResource\RelationManagers\StClassesRelationManager;
 use App\Filament\Resources\SubjectResource\Widgets\SubjectsOverview;
 use App\Models\Subject;
 use Filament\Forms;
@@ -75,7 +77,8 @@ class SubjectResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StClassesRelationManager::class,
+            AcademicProgressRelationManager::class
         ];
     }
 

@@ -5,6 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AcademicProgressResource\Pages;
 use App\Filament\Resources\AcademicProgressResource\RelationManagers;
 use App\Filament\Resources\AcademicProgressResource\Widgets\AcademicProgessOverview;
+use App\Filament\Resources\AcademicProgressResource\RelationManagers\SubjectRelationManager;
+use App\Filament\Resources\AcademicProgressResource\RelationManagers\StClassRelationManager;
+use App\Filament\Resources\AcademicProgressResource\RelationManagers\StudentRelationManager;
 use App\Models\AcademicProgress;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -99,7 +102,9 @@ class AcademicProgressResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StClassRelationManager::class,
+            StudentRelationManager::class,
+            SubjectRelationManager::class
         ];
     }
 

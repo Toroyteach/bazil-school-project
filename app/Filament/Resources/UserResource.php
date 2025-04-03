@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AcademicProgressResource\Widgets\UsersOverview;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\RelationManagers\ClassSubjectRelationManager;
+use App\Filament\Resources\UserResource\RelationManagers\StClassRelationManager;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -93,7 +95,8 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ClassSubjectRelationManager::class,
+            StClassRelationManager::class,
         ];
     }
 
