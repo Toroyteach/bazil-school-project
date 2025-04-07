@@ -20,6 +20,7 @@ class OTPFactory extends Factory
     {
         return [
             'phone_number' => fake()->phoneNumber(),
+            'send_email' => fake()->email(),
             'otp_code' => fake()->numberBetween(100000, 999999),
             'expires_at' => fake()->dateTimeBetween('now', '+1 hour'),
             'is_verified' => fake()->boolean(),

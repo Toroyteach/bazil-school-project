@@ -9,6 +9,7 @@ use App\Filament\Resources\StudentResource\RelationManagers\OtpRelationManager;
 use App\Filament\Resources\StudentResource\RelationManagers\SchoolFeesRelationManager;
 use App\Filament\Resources\StudentResource\RelationManagers\StClassesRelationManager;
 use App\Filament\Resources\StudentResource\Widgets\StudentsOverview;
+use App\Models\StClass;
 use App\Models\Student;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -63,8 +64,11 @@ class StudentResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('admission_number')
                     ->required(),
-                Forms\Components\TextInput::make('class_id')
-                    ->numeric(),
+                Forms\Components\Select::make('class_id')
+                    ->label('Class')
+                    ->options(StClass::pluck('class_name', 'id'))
+                    ->searchable()
+                    ->required(),
                 Forms\Components\TextInput::make('section'),
                 Forms\Components\TextInput::make('emergency_contact_name')
                     ->required(),
@@ -103,7 +107,7 @@ class StudentResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('admission_number')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('class_id')
+                Tables\Columns\TextColumn::make('st_class.class_name')
                     ->numeric()
                     ->sortable(),
             ])

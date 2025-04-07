@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\File;
+use App\Models\Post;
 use App\Models\Student;
 use App\Models\StClass;
 use App\Models\Subject;
@@ -35,7 +37,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // PaymentMethod::factory()->count(4)->create();
-        User::factory()->count(25)->create(); // 200 users
+        $users = User::factory()->count(25)->create(); // 200 users
 
 
         // Ensure unique class names
@@ -117,6 +119,19 @@ class DatabaseSeeder extends Seeder
             ]);
         });
 
-        OTP::factory()->count(1000)->create(); // 1000 OTP records
+        OTP::factory()->count(5)->create(); // 1000 OTP records
+
+        Post::factory(20)->create()->each(function ($post) use ($users) {
+            // Attach attendees (for events)
+            if ($post->type === 'event') {
+                $post->attendees()->attach($users->random(rand(2, 5))->pluck('id'));
+            }
+
+            // Create Files (3 random)
+            File::factory(3)->create([
+                'fileable_id' => $post->id,
+                'fileable_type' => Post::class,
+            ]);
+        });
     }
 }

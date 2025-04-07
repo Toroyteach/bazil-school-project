@@ -32,7 +32,7 @@ class StudentFactory extends Factory
             'parent_email_1' => fake()->optional()->safeEmail(),
             'parent_email_2' => fake()->optional()->safeEmail(),
             'admission_date' => fake()->date(),
-            'admission_number' => fake()->asciify('*********'),
+            'admission_number' => 'TCS-' . fake()->unique()->numberBetween(10000, 99999),
             'class_id' => \App\Models\StClass::inRandomOrder()->first()?->id,
             'section' => fake()->optional()->word(),
             'emergency_contact_name' => fake()->name(),

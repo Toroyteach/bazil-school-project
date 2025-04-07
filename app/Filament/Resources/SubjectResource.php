@@ -7,6 +7,7 @@ use App\Filament\Resources\SubjectResource\RelationManagers;
 use App\Filament\Resources\SubjectResource\RelationManagers\AcademicProgressRelationManager;
 use App\Filament\Resources\SubjectResource\RelationManagers\StClassesRelationManager;
 use App\Filament\Resources\SubjectResource\Widgets\SubjectsOverview;
+use App\Models\StClass;
 use App\Models\Subject;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -36,9 +37,11 @@ class SubjectResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('class_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('class_id')
+                    ->label('Class')
+                    ->options(StClass::pluck('class_name', 'id'))
+                    ->searchable()
+                    ->required(),
             ]);
     }
 
@@ -56,9 +59,7 @@ class SubjectResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('class_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('st_class.class_name')->label('Class Name')->sortable()->searchable(),
             ])
             ->filters([
                 //

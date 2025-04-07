@@ -9,6 +9,7 @@ use App\Filament\Resources\AcademicProgressResource\RelationManagers\SubjectRela
 use App\Filament\Resources\AcademicProgressResource\RelationManagers\StClassRelationManager;
 use App\Filament\Resources\AcademicProgressResource\RelationManagers\StudentRelationManager;
 use App\Models\AcademicProgress;
+use App\Models\StClass;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -32,14 +33,16 @@ class AcademicProgressResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('student_id')
-                    ->relationship('student', 'id')
+                    ->relationship('student', 'first_name  ')
                     ->required(),
                 Forms\Components\Select::make('subject_id')
                     ->relationship('subject', 'title')
                     ->required(),
-                Forms\Components\TextInput::make('class_id')
-                    ->required()
-                    ->numeric(),
+                    Forms\Components\Select::make('class_id')
+                    ->label('Class')
+                    ->options(StClass::pluck('class_name', 'id'))
+                    ->searchable()
+                    ->required(),
                 Forms\Components\TextInput::make('progress_type')
                     ->required(),
                 Forms\Components\Textarea::make('description')
@@ -62,13 +65,13 @@ class AcademicProgressResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('student.id')
+                Tables\Columns\TextColumn::make('student.first_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('subject.title')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('class_id')
+                Tables\Columns\TextColumn::make('stClass.class_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('progress_type')

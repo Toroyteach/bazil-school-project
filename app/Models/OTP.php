@@ -16,7 +16,8 @@ class OTP extends Model
         'expires_at',
         'is_verified',
         'student_id',
-        'class_id'
+        'class_id',
+        'send_email'
     ];
 
     public function student(): BelongsTo

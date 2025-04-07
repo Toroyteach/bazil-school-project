@@ -70,7 +70,7 @@ class SchoolFeeResource extends Resource
                     ->extraAttributes(['class' => 'text-lg text-gray-500 font-semibold'])
             ])
             ->columns([
-                Tables\Columns\TextColumn::make('student.id')
+                Tables\Columns\TextColumn::make('student.first_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('amount_due')

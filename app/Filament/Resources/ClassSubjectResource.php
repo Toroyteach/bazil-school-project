@@ -8,6 +8,7 @@ use App\Filament\Resources\ClassSubjectResource\Widgets\ClassSubjectsOverview;
 use App\Filament\Resources\ClassSubjectResource\RelationManagers\TeacherRelationManager;
 use App\Filament\Resources\ClassSubjectResource\RelationManagers\StClassRelationManager;
 use App\Models\ClassSubject;
+use App\Models\StClass;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -34,8 +35,11 @@ class ClassSubjectResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('subject_code')
                     ->required(),
-                Forms\Components\TextInput::make('class_id')
-                    ->numeric(),
+                Forms\Components\Select::make('class_id')
+                    ->label('Class')
+                    ->options(StClass::pluck('class_name', 'id'))
+                    ->searchable()
+                    ->required(),
                 Forms\Components\Select::make('teacher_id')
                     ->relationship('teacher', 'name'),
             ]);
@@ -57,7 +61,7 @@ class ClassSubjectResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('subject_code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('class_id')
+                Tables\Columns\TextColumn::make('st_class.class_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('teacher.name')

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('o_t_p_s', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('phone_number'); // phone number used for OTP login
+            $table->string('phone_number')->nullable(); // phone number used for OTP login
+            $table->string('send_email')->nullable();
             $table->string('otp_code'); // the OTP code sent to the phone
             $table->integer('student_id')->unsigned(); // foreign key to students
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');

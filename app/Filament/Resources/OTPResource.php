@@ -64,10 +64,10 @@ class OTPResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('otp_code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('student.id')
+                Tables\Columns\TextColumn::make('student.first_name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('class_id')
+                Tables\Columns\TextColumn::make('stClass.class_name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('expires_at')

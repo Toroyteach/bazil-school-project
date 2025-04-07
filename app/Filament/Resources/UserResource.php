@@ -40,18 +40,11 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required(),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required(),
                 Forms\Components\TextInput::make('phone_number')
                     ->tel(),
                 Forms\Components\TextInput::make('address'),
                 Forms\Components\TextInput::make('city'),
-                Forms\Components\TextInput::make('state'),
-                Forms\Components\TextInput::make('country'),
                 Forms\Components\TextInput::make('postal_code'),
-                Forms\Components\TextInput::make('role')
-                    ->required(),
             ]);
     }
 
