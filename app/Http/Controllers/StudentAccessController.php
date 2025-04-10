@@ -20,7 +20,10 @@ class StudentAccessController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->with('error', 'Please enter a valid contact and admission number.');
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
         }
 
         $contact = $data['contact'];
@@ -37,7 +40,10 @@ class StudentAccessController extends Controller
         }
 
         if (!$isValid) {
-            return back()->with('error', 'Contact does not match any parent contact for this student.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Contact does not match any Details.'
+            ], 403);
         }
 
         try {
@@ -45,13 +51,15 @@ class StudentAccessController extends Controller
             $response = $service->generateOtpForContact($contact, $admissionNumber);
 
             if (isset($response['error'])) {
-                return back()->with('error', $response['error']);
+                return response()->json([
+                    'success' => false,
+                    'message' => $response['error']
+                ], 500);
             }
 
-            return back()->with([
-                'success' => $response['message'],
-                'show_otp_form' => true,
-                'contact' => $contact
+            return response()->json([
+                'success' => true,
+                'message' => $response['message']
             ]);
         } catch (\Exception $e) {
             return back()->with('error', 'Failed to send OTP. Try again.');
@@ -60,28 +68,51 @@ class StudentAccessController extends Controller
 
     public function verifyOtp(Request $request)
     {
-        $data = $request->only(['otp', 'contact']);
+        if (!$request->ajax()) {
+            return response()->json(['success' => false, 'message' => 'Invalid request.'], 400);
+        }
+
+        $data = $request->only(['otp', 'contact', 'admission_number']);
 
         $validator = Validator::make($data, [
             'otp' => 'required|string',
             'contact' => 'required|string',
+            'admission_number' => 'required|string|exists:students,admission_number',
         ]);
 
         if ($validator->fails()) {
-            return back()->with('error', 'OTP or contact is invalid.');
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
         }
 
         try {
             $service = new StudentAccessService();
             $studentData = $service->verifyOtpAndFetchData($data['contact'], $data['otp']);
 
-            if (isset($studentData['error'])) {
-                return back()->with('error', $studentData['error']);
-            }
+            // store data in session so the view route can use it
+            session()->flash('student_data', $studentData);
 
-            return view('front.student-details.student-details', $studentData);
+            return response()->json([
+                'success' => true,
+                'message' => 'OTP verified. Redirecting...',
+                'redirect' => route('student.access.details')
+            ]);
+
         } catch (\Exception $e) {
             return back()->with('error', $e->getMessage());
         }
+    }
+
+    public function showStudentDetails(Request $request)
+    {
+        $studentData = $request->session()->get('student_data');
+
+        if (!$studentData) {
+            return back()->with('error', 'Student data not found.');
+        }
+
+        return view('front.student-details.student-details', $studentData);
     }
 }

@@ -41,7 +41,7 @@ class StudentAccessService
             if ($existingOtp) {
                 $channel = filter_var($contact, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
                 return [
-                    'message' => "An OTP was already sent to your {$channel} within the last 30 minutes. Please check and use it."
+                    'message' => "An OTP was already sent to your {$channel} within the last 30 minutes. Please check and reuse it."
                 ];
             }
 
@@ -56,13 +56,11 @@ class StudentAccessService
                 'class_id' => $student->class_id,
             ]);
 
-            $parentName = filter_var($contact, FILTER_VALIDATE_EMAIL) ? 'Parent (Email)' : 'Parent (Phone)';
-            $message = "Dear {$parentName}, your OTP to access info for {$student->first_name} {$student->last_name} is: {$otpCode}";
+            $message = "Dear Parent/Guardian, your OTP to access info for {$student->first_name} {$student->last_name} is: {$otpCode}";
 
             if (filter_var($contact, FILTER_VALIDATE_EMAIL)) {
 
                 Mail::to($contact)->send(new SendParentOtpMail(
-                    parentName: $parentName,
                     studentName: "{$student->first_name} {$student->last_name}",
                     otp: $otpCode,
                 ));
@@ -99,14 +97,15 @@ class StudentAccessService
                 return ['error' => 'Invalid or expired OTP.'];
             }
 
+            
             $record->update(['is_verified' => true]);
-
+            
             $student = Student::with(['st_class', 'schoolFees', 'academicProgress'])->findOrFail($record->student_id);
-
+            
             return [
                 'student' => $student,
                 'fees' => $student->schoolFees,
-                'progress' => $student->academicProgress,
+                'progress' => $student->academicProgress->groupBy('term'),
             ];
         } catch (Exception $e) {
             return ['error' => $e->getMessage()];

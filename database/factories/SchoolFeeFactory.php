@@ -25,6 +25,7 @@ class SchoolFeeFactory extends Factory
             'balance' => fake()->randomFloat(2, 0, 1000), // Example range
             'status' => fake()->randomElement(['Paid', 'Partial', 'Unpaid']),
             'due_date' => fake()->date(),
+            'date_paid' => fake()->date(),
             'payment_method_id' => PaymentMethod::factory(), // Create a related payment method
             'remarks' => fake()->sentence(),
         ];

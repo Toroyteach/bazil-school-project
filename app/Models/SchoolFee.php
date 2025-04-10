@@ -24,6 +24,7 @@ class SchoolFee extends Model
         'balance',
         'status',
         'due_date',
+        'date_paid',
         'payment_method_id',
         'remarks',
     ];
@@ -59,6 +60,7 @@ class SchoolFee extends Model
             'balance' => 'required|numeric|between:0,999999.99',
             'status' => ['required', 'string', Rule::in(['Paid', 'Partial', 'Unpaid'])],
             'due_date' => 'required|date',
+            'date_paid' => 'nullable|date',
             'payment_method_id' => 'nullable|exists:payment_methods,id',
             'remarks' => 'nullable|string',
         ];

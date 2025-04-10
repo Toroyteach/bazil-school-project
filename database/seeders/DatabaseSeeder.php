@@ -29,16 +29,14 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password123'),
             'phone_number' => '1234567890',
             'address' => '123 Main St',
-            'city' => 'Nairobi',
-            'state' => 'Nairobi',
+            'city' => 'Kape',
+            'state' => 'Westy',
             'country' => 'Kenya',
             'postal_code' => '00100',
             'role' => 'admin',
         ]);
 
-        // PaymentMethod::factory()->count(4)->create();
-        $users = User::factory()->count(25)->create(); // 200 users
-
+        $users = User::factory()->count(25)->create(); // 25 users/Teachers
 
         // Ensure unique class names
         $classNames = [
@@ -118,8 +116,6 @@ class DatabaseSeeder extends Seeder
                 'payment_method_id' => PaymentMethod::factory()->create()->id,
             ]);
         });
-
-        OTP::factory()->count(5)->create(); // 1000 OTP records
 
         Post::factory(20)->create()->each(function ($post) use ($users) {
             // Attach attendees (for events)

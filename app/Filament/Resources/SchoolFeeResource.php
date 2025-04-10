@@ -32,7 +32,7 @@ class SchoolFeeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('student_id')
-                    ->relationship('student', 'id')
+                    ->relationship('student', 'first_name')
                     ->required(),
                 Forms\Components\TextInput::make('class_id')
                     ->required()

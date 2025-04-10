@@ -1,18 +1,16 @@
-<x-mail::message>
-    # Hello {{ $parentName }},
+@component('mail::message')
+# Hello Parent Gurdian,
 
-    You’ve requested to access student info for **{{ $studentName }}** via **{{ config('app.name') }}**.
+You’ve requested to access student info for **{{ $studentName }}** via **{{ config('app.name') }}**.
 
-    <x-mail::panel>
-        **Your OTP is:**
-        # {{ $otp }}
-        _Valid for 30 minutes._
-    </x-mail::panel>
+**Your OTP is:**
+# {{ $otp }}
+_Valid for 30 minutes._
 
-    <x-mail::button :url="config('app.url')">
-        Access Student Info
-    </x-mail::button>
+@component('mail::button', ['url' => config('app.url') . '/student-access'])
+Access Student Info
+@endcomponent
 
-    Thanks,
-    **{{ config('app.name') }} Team**
-</x-mail::message>
+Thanks,
+**{{ config('app.name') }} Team**
+@endcomponent

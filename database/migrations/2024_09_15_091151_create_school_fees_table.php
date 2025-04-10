@@ -21,7 +21,8 @@ return new class extends Migration
             $table->decimal('amount_paid', 10, 2)->default(0); // amount already paid
             $table->decimal('balance', 10, 2); // remaining balance
             $table->enum('status', ['Paid', 'Partial', 'Unpaid'])->default('Unpaid'); // payment status
-            $table->date('due_date'); // due date for payment
+            $table->date('due_date')->nullable(); // due date for payment
+            $table->date('date_paid')->nullable();
             $table->integer('payment_method_id')->unsigned()->nullable(); // foreign key to payment methods
             $table->foreign('payment_method_id')->references('id')->on('payment_methods')->onDelete('set null');
             $table->text('remarks')->nullable(); // any additional remarks or comments

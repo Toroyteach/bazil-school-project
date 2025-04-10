@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\StClass;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Student;
 use App\Models\Subject;
@@ -37,12 +38,12 @@ class AcademicProgressFactory extends Factory
                 [
                     'date' => $this->faker->dateTimeBetween("{$startYear}-01-01", "{$endYear}-12-31")->format('Y-m-d'),
                     'comment' => $this->faker->sentence(),
-                    'teacher_name' => $this->faker->name(),
+                    'teacher_name' => User::inRandomOrder()->first()?->first_name,
                 ],
                 [
                     'date' => $this->faker->dateTimeBetween("{$startYear}-01-01", "{$endYear}-12-31")->format('Y-m-d'),
                     'comment' => $this->faker->sentence(),
-                    'teacher_name' => $this->faker->name(),
+                    'teacher_name' => User::inRandomOrder()->first()?->first_name,
                 ]
             ],
         ];
